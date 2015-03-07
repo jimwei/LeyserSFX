@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link  href="vendor/bootstrap/3.3.2/css/bootstrap.css"  rel="stylesheet">
+    <link  href="vendor/bootstrap/3.3.2/css/bootstrap-theme.css" rel="stylesheet">
+    <script scr="vendor/jquery-2.1.3.js"></script>
+    <style>
+        #container
+        {
+            position: absolute;
+            width: 500px;
+            height: 220px;
+            margin: 0 auto;
+            top:50%;
+            left:50%;
+            margin-top: -110px;
+            margin-left: -250px;
+            border:1px solid blue;
+            background-color:  floralwhite;
+        }
+        #client
+        {
+            display: inline;
+        }
+        #options
+        {
+            display: block;
+            margin: 2px;
+            margin-top: 10px;;
+        }
+        #upload
+        {
+            display: block;
+            margin-left: 2px;
+            margin-top: 20px;
+        }
+        #command
+        {
+            margin-top: 10px;
+            margin-right: 5px;;
+            float: left;
+        }
+        legend
+        {
+            font-size:1em;
+        }
+        #cbxASP,#cbxCS
+        {
+            width:40px;
+        }
+        #client,#server
+         {
+            width:35px;
+         }
+    </style>
+</head>
+<body>
+<form method="POST" action="/create" enctype="multipart/form-data" class="navbar-form navbar-middle">
+    <div id="container" class="container-fluid">
+       <div id="options"  class="panel panel-default">
+    <fieldset >
+        <legend>SFX选项</legend>
+    <div id="clientMode">
+      <label><input type="checkbox" id="cbxASP" name="cbxASP" required  checked>ASP</label>
+      <label> <input type="checkbox" id="cbxCS" name="cbxCS"  required checked>CS</label>
+    </div>
+    <div id="location">
+        <label><input type="radio" id="client" name="location" value="client" checked required >Client</label>
+        <label> <input type="radio" id="server" name="location" value="server" required>Server</label>
+    </div>
+    </fieldset>
+       </div>
+    <div id="upload">
+       <label> <input class="btn btn-primary btn-sm" type="file" name="fileUploader" multiple  required></label>
+    </div>
+    <div id="command">
+        <input class="btn btn-primary btn-sm" type="submit"  name="submit" value="创建并下载" >
+    </div>
+    </div>
+</form>
+</body>
+</html>

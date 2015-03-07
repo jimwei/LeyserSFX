@@ -1,0 +1,5 @@
+;The comment below contains SFX script commands
+
+Setup=File\QuickDeployment.exe
+TempMode
+Silent=1
