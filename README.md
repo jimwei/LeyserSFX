@@ -1,1 +1,1 @@
-this is a create sfx softwre use golang.
+this is a create sfx software used by golang.
