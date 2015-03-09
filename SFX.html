@@ -11,11 +11,11 @@
         {
             position: absolute;
             width: 500px;
-            height: 220px;
+            height: 260px;
             margin: 0 auto;
             top:50%;
             left:50%;
-            margin-top: -110px;
+            margin-top: -130px;
             margin-left: -250px;
             border:1px solid blue;
             background-color:  floralwhite;
@@ -73,9 +73,14 @@
     </fieldset>
        </div>
     <div id="upload">
-       <label> <input class="btn btn-primary btn-sm" type="file" name="fileUploader" multiple  required></label>
+        <span>新DLL:</span>
+       <label> <input class="btn btn-primary btn-sm" type="file"   name="fileUploader1" multiple  required ></label>
+        <br/>
+        <span>旧DLL:</span>
+        <label> <input class="btn btn-primary btn-sm" type="file"   name="fileUploader2" multiple  required ></label>
     </div>
     <div id="command">
+
         <input class="btn btn-primary btn-sm" type="submit"  name="submit" value="创建并下载" >
     </div>
     </div>

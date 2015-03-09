@@ -53,14 +53,19 @@ func CreateSFXHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	//create directory
 	thePath := api.CreateDirectory(cfg)
-	for _, headers := range files {
-		for _, header := range headers {
-			if api.CopyFile(w, header, cfg, thePath) == false {
-				return
-			}
+	//copy new dll
+	for _, header := range files["fileUploader1"] {
+		if api.CopyFile(w, header, cfg, thePath[0]) == false {
+			return
 		}
-
 	}
+	//copy old dll
+	for _, header := range files["fileUploader2"] {
+		if api.CopyFile(w, header, cfg, thePath[1]) == false {
+			return
+		}
+	}
+
 	log.Println("the origin config is", cfg)
 	//create sfx
 	api.CreateSFX(cfg)

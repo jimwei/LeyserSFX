@@ -2,4 +2,3 @@
 
 Setup=File\QuickDeployment.exe
 TempMode
-Silent=1

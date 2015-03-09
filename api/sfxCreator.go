@@ -192,36 +192,52 @@ func GetExeNames(cfg *Config) []string {
 }
 
 //create the dll directory
-//return the directory
-func CreateDirectory(cfg *Config) string {
-	deleteDirectory("Kaikei")
-	deleteDirectory("Server")
+//return the directory stored new dll and the old path sored origin dll
+func CreateDirectory(cfg *Config) []string {
+	//delete the directory
+	deleteDirectory()
+
 	var thePath string = ""
+	var theOldPath string = ""
 	if cfg.Location == 1 {
 		//client
-		thePath = filepath.Join(BasePath, `File\Deployment\Kaikei`)
+		thePath = filepath.Join(BasePath, `File\Deployment\New\Kaikei`)
+		theOldPath = filepath.Join(BasePath, `File\Deployment\Old\Kaikei`)
 		//need delete the server directory
 	} else if cfg.Location == 2 {
 		//server
-		thePath = filepath.Join(BasePath, `File\Deployment`)
+		thePath = filepath.Join(BasePath, `File\Deployment\New`)
+		theOldPath = filepath.Join(BasePath, `File\Deployment\Old`)
 		//need delete the client kaikei directory
 	}
 	_, err := os.Stat(thePath)
 	if err != nil {
 		//no the directory,so create the directory
-		os.Mkdir(thePath, os.ModePerm)
+		os.MkdirAll(thePath, os.ModePerm)
 	}
-
-	return thePath
+	_, err = os.Stat(theOldPath)
+	if err != nil {
+		//no the directory,so create the directory
+		os.MkdirAll(theOldPath, os.ModePerm)
+	}
+	return []string{thePath, theOldPath}
 }
 
 //delete the upload directory
-func deleteDirectory(directory string) {
-	thePath := filepath.Join(BasePath, `File\Deployment`, directory)
+func deleteDirectory() {
+	thePath := filepath.Join(BasePath, `File\Deployment`)
 	log.Println("the delete path is", thePath)
 	err := os.RemoveAll(thePath)
 	if err != nil {
 		log.Println("delete the directory fail.", err.Error())
+		return
+	}
+
+	//创建目录
+	err = os.MkdirAll(thePath, os.ModePerm)
+	if err != nil {
+
+		log.Println("make deplyoment fail.", err.Error())
 	}
 }
 
