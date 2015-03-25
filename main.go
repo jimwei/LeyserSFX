@@ -70,6 +70,8 @@ func CreateSFXHandler(w http.ResponseWriter, r *http.Request) {
 	//create sfx
 	api.CreateSFX(cfg)
 
+	//Signature
+	api.Signature(cfg)
 	//download
 	api.DownloadFile(w)
 }

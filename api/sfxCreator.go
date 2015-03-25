@@ -17,11 +17,12 @@ import (
 )
 
 const (
-	RAR    = `C:\Program Files\WinRAR\WinRAR.exe`
-	CSEXE  = `SFX\CS_QuickDeployment.exe`
-	ASPEXE = `SFX\ASP_QuickDeployment.exe`
-	ARGS0  = `a -sfx -z%s\sfx.txt`
-	BAT    = "sfx.bat"
+	RAR       = `WinRAR\WinRAR.exe`
+	CSEXE     = `SFX\CS_QuickDeployment.exe`
+	ASPEXE    = `SFX\ASP_QuickDeployment.exe`
+	ARGS0     = `a -sfx -z%s\sfx.txt`
+	BAT       = "sfx.bat"
+	SIGNATURE = "NewSignFile.bat"
 )
 
 //the user setting for quickdepyoment
@@ -117,7 +118,7 @@ func createSFXCore(cfg *Config) {
 		}
 		args := strings.Split(arg, " ")
 
-		cmd := exec.Command(RAR, args...)
+		cmd := exec.Command(filepath.Join(BasePath, RAR), args...)
 
 		if err := cmd.Run(); err != nil {
 			log.Println(err)
@@ -129,6 +130,18 @@ func createSFXCore(cfg *Config) {
 	time.Sleep(1000)
 }
 
+//signature
+func Signature(cfg *Config) {
+	cmd := exec.Command(filepath.Join(BasePath, SIGNATURE))
+
+	if err := cmd.Run(); err != nil {
+		log.Println(err)
+		return
+	}
+	log.Println("signature sfx successfully!")
+	time.Sleep(1000)
+}
+
 //download the sfx files
 func DownloadFile(w http.ResponseWriter) {
 	//delete the older zip file
@@ -137,7 +150,7 @@ func DownloadFile(w http.ResponseWriter) {
 	w.Header().Set("Content-Transfer-Encoding", "binary")
 	w.Header().Set("Content-Disposition", "attachment;filename='SFX.zip'")
 
-	err := exec.Command(RAR, "a", "SFX.zip", "-ep1", filepath.Join(BasePath, `SFX\*`)).Run()
+	err := exec.Command(filepath.Join(BasePath, RAR), "a", "SFX.zip", "-ep1", filepath.Join(BasePath, `SFX\*`)).Run()
 	if err != nil {
 		log.Println("zip files fail.", err.Error())
 		return
